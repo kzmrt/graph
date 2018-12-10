@@ -4,6 +4,9 @@ from .models import Location, WeatherData
 from django.contrib.auth.mixins import LoginRequiredMixin
 import io
 import matplotlib.pyplot as plt
+import logging
+
+logger = logging.getLogger('development')
 
 
 class IndexView(LoginRequiredMixin, generic.ListView):
@@ -22,7 +25,7 @@ class DetailView(generic.DetailView):
 def setPlt(pk):
     # 折れ線グラフを出力
 
-    weather_data = WeatherData.objects.filter(location_id=pk) # 対象ロケーションの気象データを取得
+    weather_data = WeatherData.objects.select_related('location').filter(location_id=pk)  # 対象ロケーションの気象データを取得
     x = [data.data_datetime for data in weather_data] # 日時
     y1 = [data.temperature for data in weather_data] # 気温
     y2 = [data.humidity for data in weather_data]  # 湿度
