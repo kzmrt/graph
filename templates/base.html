@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+        <title>{% if request.path != '/' %}{% block title %}{% endblock %} | {% endif %}Weather Monitor</title>
+    </head>
+    <body>
+    <div class="container">
+        <header>
+            <p class="site-name"><a href="{% url 'monitor:index' %}">Weather Monitor</a></p>
+            <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}" class="logout">ログアウト</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}" class="login">ログイン</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        </header>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    </body>
+</html>
