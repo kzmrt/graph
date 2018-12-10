@@ -26,6 +26,7 @@ def setPlt(pk):
     # 折れ線グラフを出力
 
     weather_data = WeatherData.objects.select_related('location').filter(location_id=pk)  # 対象ロケーションの気象データを取得
+    # weather_data = WeatherData.objects.raw('SELECT * FROM weather_data WHERE location_id = %s', str(pk)) # このクエリでもOK
     x = [data.data_datetime for data in weather_data] # 日時
     y1 = [data.temperature for data in weather_data] # 気温
     y2 = [data.humidity for data in weather_data]  # 湿度
