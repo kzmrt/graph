@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8" />
+	</head>
+	<body>
+	<section>
+    <div class="error500">
+        <h1>500 Internal Server Error</h1>
+    </div>
+    <p>サーバー内部エラーです。</p>
+    {% if exception %}
+    <p style="color: red">{{ exception }}</p>
+    {% endif %}
+	</section>
+	<section>
+	    <p><a href="javascript:history.back()">&lt; Back</a></p>
+	</section>
+	</body>
+</html>
