@@ -30,7 +30,42 @@ def setPlt(pk):
     x = [data.data_datetime for data in weather_data] # 日時
     y1 = [data.temperature for data in weather_data] # 気温
     y2 = [data.humidity for data in weather_data]  # 湿度
+    """
+    # 横に3つのグラフを並べる：axes([左, 下, 幅, 高さ])
+    plt.axes([0.5, 0.5, 1.0, 1.0])  # 1つ目のグラフ
     plt.plot(x, y1, x, y2)
+
+    plt.axes([1.7, 0.5, 1.0, 1.0])  # 2つ目のグラフ
+    plt.plot(x, y1)
+
+    plt.axes([2.9, 0.5, 1.0, 1.0])  # 3つ目のグラフ
+    plt.plot(x, y2)
+   """
+    """
+    # 縦に3つのグラフを並べる：axes([左, 下, 幅, 高さ])
+    plt.axes([0.5, 2.4, 1.0, 1.0])  # 1つ目のグラフ
+    plt.plot(x, y1, x, y2)
+    
+    plt.axes([0.5, 1.2, 1.0, 1.0])  # 2つ目のグラフ
+    plt.plot(x, y1)
+    
+    plt.axes([0.5, 0.0, 1.0, 1.0])  # 3つ目のグラフ
+    plt.plot(x, y2)
+   """
+
+    # 2×2のレイアウトに配置する
+    fig = plt.figure(figsize=(15, 10))
+    row = 2
+    col = 2
+
+    fig.add_subplot(row, col, 1)
+    plt.plot(x, y1, x, y2)
+
+    fig.add_subplot(row, col, 3)
+    plt.plot(x, y1)
+
+    fig.add_subplot(row, col, 4)
+    plt.plot(x, y2)
 
 
 # svgへの変換
