@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 import io
 import matplotlib.pyplot as plt
 import logging
+from django.http import HttpResponseServerError
 
 logger = logging.getLogger('development')
 
@@ -19,6 +20,11 @@ class IndexView(LoginRequiredMixin, generic.ListView):
 class DetailView(generic.DetailView):
     model = Location
     template_name = 'monitor/detail.html'
+
+
+def my_test_500_view(request):
+    # Return an "Internal Server Error" 500 response code.
+    return HttpResponseServerError
 
 
 # グラフ作成

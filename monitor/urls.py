@@ -12,4 +12,7 @@ urlpatterns = [
 
     # グラフ描画
     path('monitor/<int:pk>/plot/', views.get_svg, name='plot'),
+
+    # 500エラー確認用
+    path('test/', views.my_test_500_view, name='test'),
 ]
