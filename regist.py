@@ -48,7 +48,7 @@ def regist_data(db):
                 add_data.extend(row)  # csvから読み取った情報
                 add_data.extend(str_time)  # created_at
                 add_data.extend(str_time)  # updated_at
-                add_data.append(row[3])  # ロケーションID：DBから取得する
+                add_data.append(row[3])  # ロケーションID（対象レコードがDBに存在するかの確認に使用する）
                 add_data.append(row[0])  # 対象日時（対象レコードがDBに存在するかの確認に使用する）
                 logger.debug('add_data = ' + str(add_data))
                 #logger.debug('add_data = ' + sql_insert)
