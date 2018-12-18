@@ -15,4 +15,8 @@ urlpatterns = [
 
     # 500エラー確認用
     path('test/', views.my_test_500_view, name='test'),
+
+    # ファイルアップロード用
+    path('monitor/upload/', views.upload, name='upload'),
+    path('monitor/upload_complete/', views.upload_complete, name='upload_complete'),
 ]

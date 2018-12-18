@@ -6,6 +6,11 @@ import io
 import matplotlib.pyplot as plt
 import logging
 from django.http import HttpResponseServerError
+from django.shortcuts import render, redirect
+import os
+from .forms import UploadFileForm
+
+UPLOAD_DIR = os.path.dirname(os.path.abspath(__file__)) + '/uploads/'  # アップロードしたファイルを保存するディレクトリ
 
 logger = logging.getLogger('development')
 
@@ -89,3 +94,28 @@ def get_svg(request, pk):
     plt.cla()  # clean up plt so it can be re-used
     response = HttpResponse(svg, content_type='image/svg+xml')
     return response
+
+
+# アップロードされたファイルのハンドル
+def handle_uploaded_file(f):
+    path = os.path.join(UPLOAD_DIR, f.name)
+    with open(path, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+
+# ファイルアップロード
+def upload(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            handle_uploaded_file(request.FILES['file'])
+            return redirect('monitor:upload_complete')  # アップロード完了画面にリダイレクト
+    else:
+        form = UploadFileForm()
+    return render(request, 'monitor/upload.html', {'form': form})
+
+
+# ファイルアップロード完了
+def upload_complete(request):
+    return render(request, 'monitor/upload_complete.html')
