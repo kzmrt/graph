@@ -9,6 +9,7 @@ from django.http import HttpResponseServerError
 from django.shortcuts import render, redirect
 import os
 from .forms import UploadFileForm
+from monitor import addCsv
 
 UPLOAD_DIR = os.path.dirname(os.path.abspath(__file__)) + '/uploads/'  # アップロードしたファイルを保存するディレクトリ
 
@@ -102,6 +103,12 @@ def handle_uploaded_file(f):
     with open(path, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
+    try:
+        addCsv.insert_csv_data(path)  # csvデータをDBに登録する
+    except Exception as exc:
+        logger.error(exc)
+
+    os.remove(path)  # アップロードしたファイルを削除
 
 
 # ファイルアップロード
