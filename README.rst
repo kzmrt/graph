@@ -10,7 +10,7 @@ Requirement
 ===========
 
 :Python: 3.7.0
-:Django: 2.2.2
+:Django: 2.2.3
 :astroid: 2.2.5
 :colorama: 0.4.1
 :cycler: 0.10.0
